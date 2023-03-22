@@ -3,8 +3,12 @@ package com.hemebiotech.analytics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
 import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 public class AnalyticsCounter {
 
@@ -14,20 +18,18 @@ ISymptomWriter writer;
 //the constructor of this class takes two parameters 
 public AnalyticsCounter(ISymptomReader reader, ISymptomWriter writer) {
     this.reader = reader;
-	this.writer = writer;    
+	  this.writer = writer;    
  }
 
-/*public List<String> getSymptoms() {
-  String filepath;
-  reader = new ReadSymptomDataFromFile(filepath);
-  //return reader;
-  List<String> res = new List<String>();
-  return res;
+public ArrayList<String> getSymptoms() {
+  ArrayList<String> listofsymptoms = new ArrayList<String>();
+  listofsymptoms = reader.getSymptoms(); 
+  return listofsymptoms;
 } 
 
-public Map<String, Integer> countSymtoms(List<String> symptoms) {
+public HashMap<String, Integer> countSymptoms(List<String> symptoms) {
 
-Map<String, Integer> occurence = new HashMap<String,Integer>();
+HashMap<String, Integer> occurence = new HashMap<String,Integer>();
 
 for(String line : symptoms){
   occurence.putIfAbsent(line, 0);
@@ -37,10 +39,13 @@ return occurence;
 }
 
 
-public Map<String, Integer> sortSymptoms(Map<String, Integer> symptoms) {
-
-  Map<String, Integer> sortedlistofsymptom= new LinkedHashMap<String, Integer>();
-
+public TreeMap<String, Integer> sortSymptoms(Map<String, Integer> symptoms) {
+  TreeMap<String, Integer> sorted = new TreeMap<String, Integer>(symptoms);
+  return sorted;
   
- }*/
+ }
+
+public void writeSymptoms(Map<String, Integer> symptoms) { 
+  writer.writeSymptoms(symptoms);
+}
 }
