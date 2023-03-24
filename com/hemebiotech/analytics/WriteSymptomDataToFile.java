@@ -27,7 +27,6 @@ public class WriteSymptomDataToFile implements ISymptomWriter{
         @Override
         public void writeSymptoms(Map<String, Integer> symptom) {
 
-          symptom = new HashMap<String, Integer>();
 
           try (FileWriter file = new FileWriter(filename)) {
             BufferedWriter result = new BufferedWriter (file);
@@ -36,7 +35,7 @@ public class WriteSymptomDataToFile implements ISymptomWriter{
                 while(iterator.hasNext()) {
                   Map.Entry<String, Integer> entry = iterator.next();
                   result.write(entry.getKey());
-                  result.write(entry.getValue());
+                  result.write(" : " + entry.getValue() + "\n");
                   } 
                 result.close();
               }
