@@ -7,40 +7,45 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class WriteSymptomDataToFile implements ISymptomWriter{
+/**
+ * this class implementes the interface ISymptomWriter.
+ */
+public class WriteSymptomDataToFile implements ISymptomWriter {
 
-        private String filename;
+  private String fileName;
           
-          /**
-           * @param filename a full or partial path to an empty file already existed
-           */
+  /**
+   * this constructor with no args is used here to intialise the fileName with a value.
+   * When we will call the class, the constructor will be called
+   */
+  public WriteSymptomDataToFile() {
+    this.fileName = "result.out";
+  }
+  /**
+    * This method generate a new file and write a map of symptoms, and their occurences, in it.
+    * @param symptom a list of symptoms and their occurences 
+    */
 
-           //l'erreur que tu as vient de là, le test n'a pas de param dans cette méthode
-           //en gros c'est pas à l'user de choisir le fichier de sortie, mais plutôt une valeur par défaut
-           //donc juste WriteSymptomDataToFile()
-          public WriteSymptomDataToFile () {
-              this.filename = "result.out";
-          }
-          /**
-           * @param map of strings and their occurence
-         */
-        @Override
-        public void writeSymptoms(Map<String, Integer> symptom) {
+  @Override
+  public void writeSymptoms(Map<String, Integer> symptom) {
 
-
-          try (FileWriter file = new FileWriter(filename)) {
-            BufferedWriter result = new BufferedWriter (file);
-
-              Iterator<Map.Entry<String, Integer>> iterator = symptom.entrySet().iterator();
-                while(iterator.hasNext()) {
-                  Map.Entry<String, Integer> entry = iterator.next();
-                  result.write(entry.getKey());
-                  result.write(" : " + entry.getValue() + "\n");
-                  } 
-                result.close();
-              }
-              catch (IOException e) {
-                e.printStackTrace();
-              }
-          }
-        }
+    try (FileWriter file = new FileWriter(fileName)) {
+      BufferedWriter result = new BufferedWriter(file);
+      /**
+       * Iterator is used to iterate over our map symptom.
+       * entrySet is used to extract the Set of entries from our map
+       * Symptoms are the key of our map
+       * the number of occurences of symptomps in the file are the value of our map    
+       */
+      Iterator<Map.Entry<String, Integer>> iterator = symptom.entrySet().iterator();
+      while (iterator.hasNext()) {
+        Map.Entry<String, Integer> entry = iterator.next();
+        result.write(entry.getKey());
+        result.write(" : " + entry.getValue() + "\n");
+      } 
+      result.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+}

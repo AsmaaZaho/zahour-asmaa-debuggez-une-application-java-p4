@@ -4,14 +4,13 @@ import java.util.Map;
 
 
 /**
- * Anything the will write symptom data on a valid data output format
- *
+ * the purpose is to generate a new text file which lists each symptom.
+ * the method declared in this interface is by default abstract; no body
  */
 public interface ISymptomWriter {
   /**
-	 * 
-	 * @symptom a map of symptoms with their occurence in a new file
-	 */
-   
+   * If no data is available, we have an empty file.
+   * @param symptom list of symptoms with their occurences
+   */
   public void writeSymptoms(Map<String, Integer> symptom);
 }

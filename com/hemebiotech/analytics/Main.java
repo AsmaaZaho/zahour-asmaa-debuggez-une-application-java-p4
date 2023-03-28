@@ -1,32 +1,27 @@
 package com.hemebiotech.analytics;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
 
-// WRITE YOUR CODE HERE
-public class Main{
-	public static void main(String[] args){
+public class Main {
+  /** 
+   * main method is used to recall all methods in order to execute the different treatments.
+   * @param args String[]
+   */
+  public static void main(String[] args) {
     ISymptomReader reader = new ReadSymptomDataFromFile("symptoms.txt");
     ISymptomWriter writer = new WriteSymptomDataToFile();
 
-    
     AnalyticsCounter treatments = new AnalyticsCounter(reader, writer);
 
-    ArrayList<String> Listofsymptoms = new ArrayList<String>();
-    Listofsymptoms = treatments.getSymptoms();
+    ArrayList<String> listOfSymptoms = treatments.getSymptoms();
 
-    Map<String, Integer> occurencesymptoms = new HashMap<String, Integer>();
+    Map<String, Integer> occurenceSymptoms = treatments.countSymptoms(listOfSymptoms);
 
-    occurencesymptoms = treatments.countSymptoms(Listofsymptoms);
+    Map<String, Integer> sortedSymptoms = treatments.sortSymptoms(occurenceSymptoms);
 
-    Map<String, Integer> sortedsymptoms = new HashMap<String, Integer>();
-
-    sortedsymptoms = treatments.sortSymptoms(occurencesymptoms);
-
-    treatments.writeSymptoms(sortedsymptoms);
-  
-	}
-
+    treatments.writeSymptoms(sortedSymptoms);
+  }
 }
